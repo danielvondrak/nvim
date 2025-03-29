@@ -12,6 +12,16 @@ require 'keymaps'
 require 'autocmds'
 require 'lazy-bootstrap'
 require 'lazy-plugins'
+
+--load project files if they exist
+local project = {}
+local ok, properties = pcall(require, 'properties')
+if ok then
+  project.properties = properties
+  vim.g.project = project
+end
+
+--	require 'plugins.nvim-treesitter.install'.compilers = {'gcc'},
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 -- local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
