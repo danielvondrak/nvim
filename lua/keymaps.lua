@@ -40,3 +40,33 @@ vim.keymap.set('n', '<leader>st', function()
   vim.cmd.wincmd 'J'
   vim.api.nvim_win_set_height(0, 15)
 end, { desc = 'Open [S]mall [T]erminal' })
+
+function jump_pair()
+  local ext = vim.fn.expand '%:e'
+
+  local source_exts = { 'cpp', 'c' }
+  local header_exts = { 'hpp', 'h' }
+
+  local target_exts = nil
+  if vim.tbl_contains(header_exts, ext) then
+    target_exts = source_exts
+  elseif vim.tbl_contains(source_exts, ext) then
+    target_exts = header_exts
+  else
+    print 'Not a recognized file pair'
+    return
+  end
+
+  local base_name = vim.fn.expand '%:r'
+  for _, target_ext in ipairs(target_exts) do
+    local target_file = base_name .. '.' .. target_ext
+    if (vim.fn.filereadable(target_file)) == 1 then
+      vim.cmd('edit ' .. target_file)
+      return
+    end
+  end
+
+  print 'Corresponding file not found!'
+end
+
+vim.keymap.set('n', '<leader>h', ':lua jump_pair()<CR>', { desc = 'Jump to/from header', silent = true })

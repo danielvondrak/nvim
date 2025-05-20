@@ -132,7 +132,7 @@ return {
     dap.adapters.cppdbg = {
       id = 'cppdbg',
       type = 'executable',
-      command = 'C:\\Users\\dvondrak\\.vscode\\extensions\\ms-vscode.cpptools-1.23.6-win32-x64\\debugAdapters\\bin\\OpenDebugAD7.exe',
+      command = 'C:\\Users\\dvondrak\\.vscode\\extensions\\ms-vscode.cpptools-1.24.5-win32-x64\\debugAdapters\\bin\\OpenDebugAD7.exe',
       options = {
         detached = false,
       },
@@ -151,6 +151,8 @@ return {
         end,
         cwd = '${workspaceFolder}',
         stopAtBeginningOfMainSubprogram = false,
+        externalConsole = false,
+        MIMode = 'gdb',
       },
     }
     dap.configurations.c = dap.configurations.cpp
